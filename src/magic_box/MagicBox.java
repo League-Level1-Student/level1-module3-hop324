@@ -15,6 +15,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -37,6 +38,7 @@ public class MagicBox extends JPanel implements Runnable, MouseListener {
 	BufferedImage backgroundImage;
 
 
+	
 	@Override
 	public void run() {
 		try {
@@ -47,9 +49,10 @@ public class MagicBox extends JPanel implements Runnable, MouseListener {
 		}
 	}
 
-	private void createUI() {
+	void createUI() {
 		JFrame frame = new JFrame("The Magic Box contains many secrets...");
 		frame.add(this);
+		frame.addMouseListener(this);
 		setPreferredSize(new Dimension(backgroundImage.getWidth(), backgroundImage.getHeight()));
 		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -64,6 +67,13 @@ public class MagicBox extends JPanel implements Runnable, MouseListener {
 			throw new Exception("Could not load image: " + imageFile);
 		}
 	}
+	void speak(String words) {
+		try {
+			Runtime.getRuntime().exec("say " + words).waitFor();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public void paintComponent(Graphics g) {
@@ -72,13 +82,12 @@ public class MagicBox extends JPanel implements Runnable, MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+JOptionPane.showMessageDialog(null, "Yowch, you clicked?");		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+		JOptionPane.showMessageDialog(null, "The color of the location of where you clicked is " + backgroundImage.getRGB(e.getX(), e.getY()) + ".");
 		
 	}
 
@@ -97,7 +106,7 @@ public class MagicBox extends JPanel implements Runnable, MouseListener {
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		speak("Come back!");
 	}
 
 }

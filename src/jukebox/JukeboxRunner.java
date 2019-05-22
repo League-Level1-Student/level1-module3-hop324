@@ -10,6 +10,10 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 public class JukeboxRunner implements ActionListener  {
+	JFrame frame = new JFrame();
+	 JPanel panel = new JPanel();
+	 JButton button1 = new JButton();
+	 JButton button2 = new JButton();
 	Song a = new Song("PhineasAndFerb.mp3");
 	Song b = new Song("Kero Kero Bonito - Flamingo.mp3");
 	public static void main(String[] args) {
@@ -19,10 +23,6 @@ public class JukeboxRunner implements ActionListener  {
 
 	}
 	void setup() {
-		JFrame frame = new JFrame();
-		 JPanel panel = new JPanel();
-		 JButton button1 = new JButton();
-		 JButton button2 = new JButton();
 
 		frame.add(panel);
 		panel.add(button1);
@@ -45,7 +45,11 @@ public class JukeboxRunner implements ActionListener  {
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		JButton button1 = new JButton();
-		this.button1 = button1;
+		if(e.getSource() == button1) {
+			a.play();
+		}
+		else if(e.getSource() == button2) {
+			b.play();
+		}
 	}
 }
